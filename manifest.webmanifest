@@ -1,0 +1,16 @@
+{
+  "name": "Optical Switches — Field Reference",
+  "short_name": "Optical Switches",
+  "description": "How optical switches work, key metrics (IL, ORL, crosstalk), the mirror control loop, and every test and calibration explained.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B1E38",
+  "theme_color": "#0B1E38",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
