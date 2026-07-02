@@ -185,20 +185,24 @@
       <p class="subtitle">A guide to tests, calibrations &amp; the beam-steering control loop</p>
       <p class="lede">How an optical switch works, how it is calibrated and tested, and how its control loop continuously maximises optical performance.</p>
       <svg class="beam-svg" viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Light beam steered between two mirrors from input fibre to output fibre">
-        <defs><linearGradient id="beamg" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#E8A33D" stop-opacity="0"/><stop offset="0.15" stop-color="#F6C566"/>
-          <stop offset="0.85" stop-color="#F6C566"/><stop offset="1" stop-color="#E8A33D" stop-opacity="0"/></linearGradient></defs>
-        <rect x="0" y="34" width="120" height="6" rx="3" fill="#7FA6D6"/>
-        <rect x="640" y="110" width="120" height="6" rx="3" fill="#7FA6D6"/>
-        <text x="8" y="26" fill="#AFC4DD" font-size="12" font-family="Inter,sans-serif">Input fibre</text>
-        <text x="668" y="134" fill="#AFC4DD" font-size="12" font-family="Inter,sans-serif">Output fibre</text>
-        <polyline points="120,37 250,37 510,113 640,113" fill="none" stroke="url(#beamg)" stroke-width="4"/>
-        <polyline class="beam-flow" points="120,37 250,37 510,113 640,113" fill="none" stroke="#FFE7B0" stroke-width="2" stroke-dasharray="6 14" opacity="0.9"/>
-        <g transform="translate(250,37) rotate(28)"><rect x="-4" y="-26" width="8" height="52" rx="3" fill="#CFE0F2"/></g>
-        <g transform="translate(510,113) rotate(-28)"><rect x="-4" y="-26" width="8" height="52" rx="3" fill="#CFE0F2"/></g>
-        <text x="222" y="16" fill="#E8A33D" font-size="12" font-weight="600" font-family="Inter,sans-serif">Steering mirror</text>
-        <text x="472" y="150" fill="#E8A33D" font-size="12" font-weight="600" font-family="Inter,sans-serif">Steering mirror</text>
-        <circle cx="120" cy="37" r="4.5" fill="#F6C566"/><circle cx="640" cy="113" r="4.5" fill="#F6C566"/>
+        <g fill="#7FA6D6">
+          <rect x="8" y="30" width="30" height="6" rx="3"/><rect x="8" y="68" width="30" height="6" rx="3"/>
+          <rect x="8" y="118" width="30" height="6" rx="3"/><rect x="722" y="118" width="30" height="6" rx="3"/>
+        </g>
+        <text x="8" y="20" fill="#AFC4DD" font-size="12" font-family="Inter,sans-serif">Collimator slices</text>
+        <rect x="364" y="24" width="16" height="20.8" fill="#CFE0F2"/>
+        <rect x="364" y="44.8" width="16" height="20.8" fill="#CFE0F2" opacity="0.18"/>
+        <rect x="364" y="65.6" width="16" height="20.8" fill="#CFE0F2"/>
+        <rect x="364" y="86.4" width="16" height="20.8" fill="#CFE0F2" opacity="0.18"/>
+        <rect x="364" y="107.2" width="16" height="20.8" fill="#CFE0F2"/>
+        <rect x="364" y="24" width="16" height="104" fill="none" stroke="#7FA6D6" stroke-width="1"/>
+        <text x="330" y="145" fill="#AFC4DD" font-size="12" font-family="Inter,sans-serif">Fixed central plate</text>
+        <line x1="40" y1="70" x2="722" y2="120" stroke="#F6C566" stroke-width="3"/>
+        <circle cx="372" cy="94" r="4" fill="#F6C566"/>
+        <text x="150" y="72" fill="#F6C566" font-size="12" font-weight="600" font-family="Inter,sans-serif">Through</text>
+        <polyline points="40,120 372,76 40,32" fill="none" stroke="#9FC0E8" stroke-width="3"/>
+        <circle cx="372" cy="76" r="4" fill="#9FC0E8"/>
+        <text x="150" y="44" fill="#9FC0E8" font-size="12" font-weight="600" font-family="Inter,sans-serif">Fold</text>
       </svg>
     </div>
   </header>
@@ -209,12 +213,12 @@
     <div class="beam-rule"></div>
     <div class="grid g2">
       <div class="card">
-        <p>An optical switch dynamically connects <strong>any input fibre to any output fibre</strong> under electronic control. Light is routed across free space by steerable elements — there is no continuous fibre between input and output.</p>
-        <p><strong>Two free-space architectures are used:</strong> <span class="key">3D-MEMS</span> deflects the beam with tiny movable micro-mirrors, while <span class="key">piezoelectric beam-steering</span> points collimated beams using piezoelectric actuators.</p>
+        <p>An optical switch dynamically connects <strong>any input fibre to any output fibre</strong> under electronic control. Light crosses the core as a free-space beam — there is no continuous fibre between input and output.</p>
+        <p>Here the steering is done by the <strong>collimators</strong>: each slice's piezoelectric actuators tip and tilt its own beam. A single <strong>fixed central plate</strong> then routes each beam — either straight through it, or reflected off it. (A different approach, 3D-MEMS, instead deflects light with movable micro-mirrors.)</p>
       </div>
       <div class="callout info">
-        <p class="lbl">Which technology?</p>
-        <p>Both free-space architectures — <strong>3D-MEMS</strong> micro-mirrors and <strong>piezoelectric beam-steering</strong> — share the same performance metrics and tests. This guide explains the steering-mirror control loop, which applies to both.</p>
+        <p class="lbl">Two ways to connect</p>
+        <p>The fixed central plate carries alternating vertical stripes: <strong>clear glass</strong> the beam passes through, and <strong>mirror-coated</strong> strips that reflect. Aim at a clear stripe to reach a collimator on the <strong>far side</strong> (through); aim at a mirror stripe to fold back to one on the <strong>same side</strong> (reflected).</p>
         <p style="margin-top:12px"><strong>Typical uses:</strong> data centres, test systems, ROADM, network protection, instrumentation.</p>
       </div>
     </div>
@@ -225,36 +229,52 @@
     <div class="sec-head"><span class="sec-num">2</span><h2 class="sec-title">The optical path</h2></div>
     <div class="beam-rule"></div>
     <div class="card">
-      <p style="margin-bottom:18px">Light travels from the input fibre to the output fibre via collimating lenses and two steerable mirrors.</p>
+      <p style="margin-bottom:18px">Light leaves an input fibre, is collimated and aimed by its slice, crosses to the fixed central plate, and is either passed <strong>through</strong> to a collimator on the far side or <strong>reflected</strong> to one on the same side.</p>
       <div class="grid path-layout" style="gap:24px">
         <div>
-          <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:var(--ground-2);border:1px solid var(--line);border-radius:12px" role="img" aria-label="Cross-section of the optical path from source through lenses and mirrors to the detector">
-            <defs><linearGradient id="beam2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E8A33D"/><stop offset="1" stop-color="#F6C566"/></linearGradient></defs>
-            <polyline points="60,70 150,70 250,70 250,250 360,250 460,250" fill="none" stroke="url(#beam2)" stroke-width="5" opacity="0.9"/>
-            <polyline class="beam-flow" points="60,70 150,70 250,70 250,250 360,250 460,250" fill="none" stroke="#FFF0CE" stroke-width="2" stroke-dasharray="6 14"/>
-            <circle cx="60" cy="70" r="8" fill="#2E6FB8"/><text x="46" y="44" font-size="12" fill="#1B4F8A" font-weight="600" font-family="Inter">1 · Source</text>
-            <rect x="70" y="66" width="46" height="8" rx="4" fill="#7FA6D6"/><text x="70" y="96" font-size="12" fill="#5A6B80" font-family="Inter">2 · Fibre</text>
-            <ellipse cx="150" cy="70" rx="7" ry="18" fill="#C7D9EF" stroke="#2E6FB8"/><text x="126" y="112" font-size="12" fill="#5A6B80" font-family="Inter">3 · Lens</text>
-            <g transform="translate(250,70) rotate(45)"><rect x="-5" y="-24" width="10" height="48" rx="4" fill="#0B1E38"/></g>
-            <text x="264" y="66" font-size="12" fill="#1B4F8A" font-weight="600" font-family="Inter">4 · Input mirror (X,Y)</text>
-            <text x="262" y="165" font-size="12" fill="#E8A33D" font-weight="600" font-family="Inter">5 · Free-space beam</text>
-            <g transform="translate(250,250) rotate(-45)"><rect x="-5" y="-24" width="10" height="48" rx="4" fill="#0B1E38"/></g>
-            <text x="70" y="278" font-size="12" fill="#1B4F8A" font-weight="600" font-family="Inter">6 · Output mirror</text>
-            <ellipse cx="360" cy="250" rx="7" ry="18" fill="#C7D9EF" stroke="#2E6FB8"/><text x="336" y="292" font-size="12" fill="#5A6B80" font-family="Inter">7 · Lens</text>
-            <rect x="404" y="246" width="46" height="8" rx="4" fill="#7FA6D6"/><text x="400" y="238" font-size="12" fill="#5A6B80" font-family="Inter">8 · Fibre</text>
-            <rect x="452" y="238" width="24" height="24" rx="5" fill="#2E6FB8"/><text x="392" y="300" font-size="12" fill="#1B4F8A" font-weight="600" font-family="Inter">9 · Detector</text>
+          <svg viewBox="0 0 560 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:var(--ground-2);border:1px solid var(--line);border-radius:12px" role="img" aria-label="Two collimator arrays on either side of a fixed central plate with alternating clear and mirror stripes. One beam passes through a clear stripe to the far side; another reflects off a mirror stripe back to the same side.">
+            <!-- legend -->
+            <g font-family="Inter" font-size="11">
+              <line x1="352" y1="24" x2="374" y2="24" stroke="#E8A33D" stroke-width="3"/>
+              <text x="380" y="28" fill="#5A6B80">Through — clear stripe</text>
+              <line x1="352" y1="40" x2="374" y2="40" stroke="#2E6FB8" stroke-width="3"/>
+              <text x="380" y="44" fill="#5A6B80">Fold — mirror stripe</text>
+            </g>
+            <!-- central plate: alternating mirror / clear vertical stripes -->
+            <rect x="272" y="48"  width="16" height="32" fill="#0B1E38"/>
+            <rect x="272" y="80"  width="16" height="32" fill="#DCEAF7"/>
+            <rect x="272" y="112" width="16" height="32" fill="#0B1E38"/>
+            <rect x="272" y="144" width="16" height="32" fill="#DCEAF7"/>
+            <rect x="272" y="176" width="16" height="32" fill="#0B1E38"/>
+            <rect x="272" y="208" width="16" height="32" fill="#DCEAF7"/>
+            <rect x="272" y="240" width="16" height="32" fill="#0B1E38"/>
+            <rect x="272" y="48" width="16" height="224" fill="none" stroke="#1B4F8A" stroke-width="1"/>
+            <text x="294" y="99" font-size="9.5" fill="#1B4F8A" font-family="Inter">clear</text>
+            <text x="294" y="131" font-size="9.5" fill="#5A6B80" font-family="Inter">mirror</text>
+            <text x="232" y="292" font-size="11" fill="#5A6B80" font-weight="600" font-family="Inter">Fixed central plate</text>
+            <!-- left collimator slices -->
+            <g fill="#7FA6D6"><rect x="50" y="52" width="22" height="8" rx="2"/><rect x="50" y="116" width="22" height="8" rx="2"/><rect x="50" y="156" width="22" height="8" rx="2"/><rect x="50" y="196" width="22" height="8" rx="2"/><rect x="50" y="236" width="22" height="8" rx="2"/></g>
+            <text x="34" y="308" font-size="11" fill="#5A6B80" font-family="Inter">Collimator slices</text>
+            <!-- right collimator slices -->
+            <g fill="#7FA6D6"><rect x="488" y="52" width="22" height="8" rx="2"/><rect x="488" y="116" width="22" height="8" rx="2"/><rect x="488" y="196" width="22" height="8" rx="2"/><rect x="488" y="236" width="22" height="8" rx="2"/></g>
+            <text x="430" y="308" font-size="11" fill="#5A6B80" font-family="Inter">Collimator slices</text>
+            <!-- through beam: straight through a clear stripe to the far side -->
+            <line x1="72" y1="120" x2="488" y2="200" stroke="#E8A33D" stroke-width="3"/>
+            <circle cx="72" cy="120" r="4" fill="#E8A33D"/><circle cx="280" cy="160" r="4.5" fill="#E8A33D"/><circle cx="488" cy="200" r="4" fill="#E8A33D"/>
+            <!-- folded beam: reflects off a mirror stripe back to the same side -->
+            <polyline points="72,200 280,128 72,56" fill="none" stroke="#2E6FB8" stroke-width="3"/>
+            <circle cx="72" cy="200" r="4" fill="#2E6FB8"/><circle cx="280" cy="128" r="4.5" fill="#2E6FB8"/><circle cx="72" cy="56" r="4" fill="#2E6FB8"/>
           </svg>
         </div>
         <ol class="steps">
-          <li><b>Laser / source</b> — light enters the switch.</li>
-          <li><b>Input fibre</b> — carries light to the switch.</li>
-          <li><b>Collimating lens (input)</b> — expands light into a parallel beam.</li>
-          <li><b>Input steering mirror</b> — steers the beam in two axes (X, Y).</li>
-          <li><b>Free-space beam path</b> — light travels through the air.</li>
-          <li><b>Output steering mirror</b> — steers the beam toward the output.</li>
-          <li><b>Collimating lens (output)</b> — focuses the beam into the fibre core.</li>
+          <li><b>Laser / source</b> — light enters via the input fibre.</li>
+          <li><b>Input collimator (slice)</b> — a lens forms a parallel beam; piezo actuators aim it in two axes (X, Y).</li>
+          <li><b>Free-space beam</b> — the beam crosses the core to the fixed central plate.</li>
+          <li><b>Central plate</b> — a fixed pattern of alternating <b>clear</b> (transmit) and <b>mirror-coated</b> (reflect) vertical stripes.</li>
+          <li><b>Route set by aim</b> — a clear stripe passes the beam <b>through</b> to a collimator on the far side; a mirror stripe <b>folds</b> it back to one on the same side.</li>
+          <li><b>Output collimator (slice)</b> — aimed to receive the beam and focus it into the output fibre.</li>
           <li><b>Output fibre</b> — carries light out of the switch.</li>
-          <li><b>Photodetector (internal)</b> — measures optical power for feedback.</li>
+          <li><b>Photodetector (internal)</b> — monitors optical power (OPM).</li>
         </ol>
       </div>
     </div>
@@ -303,12 +323,12 @@
     <p class="sec-sub">The heart of the switch</p>
     <div class="beam-rule"></div>
     <div class="card">
-      <p style="margin-bottom:18px">A closed-loop <strong>servo</strong> that holds each beam-steering element on the target position for the requested connection. Piezoelectric actuators tip and tilt the input and output elements so their collimated beams meet across the free-space gap — and the loop keeps them there.</p>
+      <p style="margin-bottom:18px">A closed-loop <strong>servo</strong> that holds each collimator on the target position for the requested connection. The piezoelectric actuators aim the input and output slices so both beams meet at the same point on the fixed central plate — passing through a clear stripe, or folding off a mirror stripe — and the loop keeps them there.</p>
       <div class="loop-grid">
         <ol class="steps">
           <li><b>DSP</b> looks up the target actuator positions for the requested input→output connection from the calibration table.</li>
           <li><b>DACs</b> convert those targets into drive voltages for the <b>piezoelectric actuators</b>.</li>
-          <li>The actuators <b>tip and tilt</b> the input and output beam-steering elements so the two collimated beams meet across the gap.</li>
+          <li>The actuators <b>tip and tilt</b> the input and output collimators so both beams meet at the same point on the fixed central plate — a clear stripe to pass through, or a mirror stripe to fold back.</li>
           <li>Integrated <b>position sensors</b> report each actuator's true position back to the DSP.</li>
           <li>The DSP <b>servos</b> each actuator onto its target, continuously correcting:
             <span style="display:block;color:var(--good);font-weight:600;margin-top:4px">↑ on target → hold</span>

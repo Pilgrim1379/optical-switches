@@ -1,5 +1,5 @@
 /* Optical Switches — offline app shell service worker */
-const CACHE = 'optical-switches-v2';
+const CACHE = 'optical-switches-v3';
 const ASSETS = [
   './',
   './index.html',
