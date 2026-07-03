@@ -391,14 +391,14 @@
         <p class="body">Calibrates internal photodetectors so their readings match actual optical power.</p>
         <p class="meta"><b>Purpose:</b> ensures Power Grid and other measurements are accurate.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Power Measurement, IL.</p></div>
-      <div class="test"><div class="th"><span class="tn">6</span><h3>DAC Range Grid Test</h3></div>
+      <div class="test"><div class="th"><span class="tn">6</span><h3>DAC Range Test</h3></div>
         <p class="body">Verifies DAC output range and linearity so actuators can be driven over the full range without clipping or saturation.</p>
         <p class="meta"><b>Detects:</b> bad DACs, incorrect bias, driver or actuator issues.</p>
-        <p class="rel"><b>Relates to:</b> ADC Range Grid Test, Power Grid, Connectivity, Stability.</p></div>
-      <div class="test"><div class="th"><span class="tn">7</span><h3>ADC Range Grid Test</h3></div>
+        <p class="rel"><b>Relates to:</b> ADC Range Test, Power Grid, Connectivity, Stability.</p></div>
+      <div class="test"><div class="th"><span class="tn">7</span><h3>ADC Range Test</h3></div>
         <p class="body">Verifies ADC input range and linearity so position-sensor and photodetector feedback is digitised accurately across the full range, without clipping or saturation.</p>
         <p class="meta"><b>Detects:</b> bad ADCs, incorrect reference/gain, saturated or noisy feedback readings.</p>
-        <p class="rel"><b>Relates to:</b> DAC Range Grid Test, Power Grid, Splitter / Detector Calibration, Stability.</p></div>
+        <p class="rel"><b>Relates to:</b> DAC Range Test, Power Grid, Splitter / Detector Calibration, Stability.</p></div>
       <div class="test"><div class="th"><span class="tn">8</span><h3>Dynamic X-Coupling</h3></div>
         <p class="body">Measures how moving one collimator affects neighbouring collimators — mechanical coupling that causes alignment errors, instability and higher IL.</p>
         <p class="meta"><b>Detects:</b> cross-axis mechanical coupling.</p>
@@ -428,6 +428,22 @@
         <p class="meta"><b>Purpose:</b> final sign-off of optical performance.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Thermal, Alignment.</p></div>
     </div>
+    <div class="callout info" style="margin-top:16px">
+      <p class="lbl">DAC vs ADC — a tricky distinction</p>
+      <p class="hill-caption" style="margin:6px 0 12px">Both bound the electronic range of the same control loop, but on opposite sides of it.</p>
+      <div class="table-scroll" style="border-color:#C6DAF1">
+        <table class="rel-table">
+          <thead><tr><th>&nbsp;</th><th>DAC Range Test</th><th>ADC Range Test</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:normal">Converter direction</td><td style="white-space:normal;font-weight:600;color:var(--ink)">Digital → Analogue</td><td>Analogue → Digital</td></tr>
+            <tr><td style="white-space:normal">What it drives / reads</td><td style="white-space:normal">DSP command → drive voltage → <b>actuator</b></td><td>Position sensor / photodetector → digitised reading → <b>DSP</b></td></tr>
+            <tr><td style="white-space:normal">Side of the loop</td><td style="white-space:normal">Output (drive) side</td><td>Input (feedback) side</td></tr>
+            <tr><td style="white-space:normal">Detects</td><td style="white-space:normal">Bad DACs, incorrect bias, driver/actuator issues</td><td>Bad ADCs, incorrect reference/gain, saturated or noisy feedback</td></tr>
+            <tr><td style="white-space:normal">Symptom if it fails</td><td style="white-space:normal">Actuator can't reach full range — can look like a Power Grid or clipping fault</td><td>DSP misreads position/power — can also look like a Power Grid or clipping fault</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div class="order" style="margin-top:16px">
       <h3>Typical test order</h3>
       <ol><li>Connectivity Check</li><li>DAC Range Test</li><li>ADC Range Test</li><li>Splitter / Detector Calibration</li><li>Thermal Calibration</li><li>Power Grid Check</li><li>IL &amp; ORL Test</li><li>Stability, XTALK, Speed, etc.</li><li>Power Cycling Test</li></ol>
@@ -449,8 +465,7 @@
           <tr><td>Power Grid</td><td>IL Test</td><td>Poor Power Grid results increase insertion loss due to sub-optimal alignment.</td></tr>
           <tr><td>Splitter Calibration</td><td>Power Grid</td><td>Power Grid relies on accurate detector measurements.</td></tr>
           <tr><td>DAC Range Test</td><td>Power Grid</td><td>If the DAC cannot provide full range, the optimum position may be unreachable.</td></tr>
-          <tr><td>DAC Range Test</td><td>ADC Range Test</td><td>Opposite directions of the same electronic path: DAC checks the <b>drive</b> side (DSP → actuator), ADC checks the <b>feedback</b> side (sensor → DSP). A limit on either can look like the same misalignment or clipping.</td></tr>
-          <tr><td>ADC Range Test</td><td>Power Grid, Splitter Cal</td><td>Power Grid and Splitter Calibration both depend on accurate feedback readings; a saturated or non-linear ADC undermines both.</td></tr>
+          <tr><td>ADC Range Test</td><td>Power Grid, Splitter Cal</td><td>Power Grid and Splitter Calibration both depend on accurate feedback readings; a saturated or non-linear ADC undermines both. See the DAC vs ADC comparison below.</td></tr>
           <tr><td>Stability Test</td><td>Thermal Calibration</td><td>Thermal drift is a major cause of instability; compensation improves stability.</td></tr>
           <tr><td>Crosstalk Test</td><td>IL &amp; ORL</td><td>Misalignment can increase loss, reflections and leakage (crosstalk).</td></tr>
           <tr><td>Power Cycling</td><td>Almost everything</td><td>After reboot, the switch should reproduce the same performance and retain calibrations.</td></tr>
