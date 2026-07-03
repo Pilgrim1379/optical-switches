@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Optical Switches — Tests, Calibrations &amp; the Beam-Steering Control Loop</title>
-<meta name="description" content="A field reference for optical switches: how they work, the key metrics (IL, ORL, crosstalk), the mirror control loop, and every test and calibration explained.">
+<meta name="description" content="A field reference for optical switches: how they work, the key metrics (IL, ORL, crosstalk), the beam-steering control loop, and every test and calibration explained.">
 <link rel="manifest" href="./manifest.webmanifest">
 <meta name="theme-color" content="#0B1E38">
 <link rel="icon" href="./icons/favicon.svg" type="image/svg+xml">
@@ -184,7 +184,7 @@
       <h1 class="title">Optical Switches</h1>
       <p class="subtitle">A guide to tests, calibrations &amp; the beam-steering control loop</p>
       <p class="lede">How an optical switch works, how it is calibrated and tested, and how its control loop continuously maximises optical performance.</p>
-      <svg class="beam-svg" viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Light beam steered between two mirrors from input fibre to output fibre">
+      <svg class="beam-svg" viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Beams routed through a fixed central plate with alternating clear and mirror stripes — one beam passing through to the far side, one folding back to the same side">
         <g fill="#7FA6D6">
           <rect x="8" y="30" width="30" height="6" rx="3"/><rect x="8" y="68" width="30" height="6" rx="3"/>
           <rect x="8" y="118" width="30" height="6" rx="3"/><rect x="722" y="118" width="30" height="6" rx="3"/>
@@ -214,7 +214,7 @@
     <div class="grid g2">
       <div class="card">
         <p>An optical switch dynamically connects <strong>any input fibre to any output fibre</strong> under electronic control. Light crosses the core as a free-space beam — there is no continuous fibre between input and output.</p>
-        <p>Here the steering is done by the <strong>collimators</strong>: each slice's piezoelectric actuators tip and tilt its own beam. A single <strong>fixed central plate</strong> then routes each beam — either straight through it, or reflected off it. (A different approach, 3D-MEMS, instead deflects light with movable micro-mirrors.)</p>
+        <p>Here the steering is done by the <strong>collimators</strong>: each slice's piezoelectric actuators tip and tilt its own beam. A single <strong>fixed central plate</strong> then routes each beam — either straight through it, or reflected off it.</p>
       </div>
       <div class="callout info">
         <p class="lbl">Two ways to connect</p>
@@ -341,7 +341,7 @@
             <p class="lbl">How the target is found — then held</p>
             <p class="hill-caption" style="margin:6px 0 0">During <b>calibration</b> the beam is swept to find the peak (maximum power) and its position is recorded. In <b>operation</b> the position servo parks the beam on that recorded spot and holds it there.</p>
           </div>
-          <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:var(--ground-2);border:1px solid var(--line);border-radius:12px" role="img" aria-label="Hill-climb graph: optical power rises to an optimum peak against mirror position">
+          <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;background:var(--ground-2);border:1px solid var(--line);border-radius:12px" role="img" aria-label="Hill-climb graph: optical power rises to an optimum peak against beam position">
             <line x1="40" y1="20" x2="40" y2="190" stroke="#9AB0C7" stroke-width="1.5"/>
             <line x1="40" y1="190" x2="340" y2="190" stroke="#9AB0C7" stroke-width="1.5"/>
             <text x="10" y="105" font-size="12" fill="#5A6B80" font-family="Inter" transform="rotate(-90 14 105)">Power (mW)</text>
@@ -372,58 +372,54 @@
     <div class="beam-rule"></div>
     <div class="tests">
       <div class="test"><div class="th"><span class="tn">1</span><h3>Connectivity Check</h3></div>
-        <p class="body">Verifies every requested input–output path can be established; checks mirror movement, controller operation, addressing and routing.</p>
-        <p class="meta"><b>Detects:</b> stuck mirrors, dead slices, actuator failures, addressing faults.</p>
+        <p class="body">Verifies every requested input–output path can be established; checks collimator movement, controller operation, addressing and routing.</p>
+        <p class="meta"><b>Detects:</b> stuck actuators, dead slices, addressing faults.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, IL, ORL, Stability (if this fails, others are unreliable).</p></div>
       <div class="test"><div class="th"><span class="tn">2</span><h3>Power Grid Check (Power Calibration)</h3></div>
-        <p class="body">Measures optical power across a range of mirror positions to find the optimum (maximum) power point for every path.</p>
-        <p class="meta"><b>Detects:</b> misalignment, weak mirrors, dirty optics, detector issues, damage.</p>
+        <p class="body">Measures optical power across a range of collimator positions to find the optimum (maximum) power point for every path.</p>
+        <p class="meta"><b>Detects:</b> misalignment, weak actuators, dirty optics, detector issues, damage.</p>
         <p class="rel"><b>Relates to:</b> Thermal Cal, IL, ORL, Crosstalk, Stability.</p></div>
       <div class="test"><div class="th"><span class="tn">3</span><h3>Thermal Calibration</h3></div>
-        <p class="body">Characterises how mirror positions change with temperature and builds compensation tables.</p>
-        <p class="meta"><b>Purpose:</b> keeps mirrors at the optimum as temperature changes.</p>
+        <p class="body">Characterises how collimator positions change with temperature and builds compensation tables.</p>
+        <p class="meta"><b>Purpose:</b> keeps collimators aligned at the optimum as temperature changes.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Stability, IL over temperature.</p></div>
-      <div class="test"><div class="th"><span class="tn">4</span><h3>Open Cal Log</h3></div>
-        <p class="body">Opens the calibration history log — past calibrations, results, warnings, failures, dates.</p>
-        <p class="meta"><b>Purpose:</b> troubleshooting and traceability.</p>
-        <p class="rel"><b>Relates to:</b> all tests (helps diagnose trends).</p></div>
-      <div class="test"><div class="th"><span class="tn">5</span><h3>Power Measurement</h3></div>
+      <div class="test"><div class="th"><span class="tn">4</span><h3>Power Measurement</h3></div>
         <p class="body">Live optical-power monitoring from internal detectors, used during debugging, calibration and alignment.</p>
         <p class="meta"><b>Note:</b> not a qualification test.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Stability, IL.</p></div>
-      <div class="test"><div class="th"><span class="tn">6</span><h3>Splitter / Detector Calibration</h3></div>
+      <div class="test"><div class="th"><span class="tn">5</span><h3>Splitter / Detector Calibration</h3></div>
         <p class="body">Calibrates internal photodetectors so their readings match actual optical power.</p>
         <p class="meta"><b>Purpose:</b> ensures Power Grid and other measurements are accurate.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Power Measurement, IL.</p></div>
-      <div class="test"><div class="th"><span class="tn">7</span><h3>DAC Range Grid Test</h3></div>
-        <p class="body">Verifies DAC output range and linearity so mirrors can be driven over the full range without clipping or saturation.</p>
+      <div class="test"><div class="th"><span class="tn">6</span><h3>DAC Range Grid Test</h3></div>
+        <p class="body">Verifies DAC output range and linearity so actuators can be driven over the full range without clipping or saturation.</p>
         <p class="meta"><b>Detects:</b> bad DACs, incorrect bias, driver or actuator issues.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Connectivity, Stability.</p></div>
-      <div class="test"><div class="th"><span class="tn">8</span><h3>Dynamic X-Coupling</h3></div>
-        <p class="body">Measures how moving one mirror affects neighbouring mirrors — mechanical coupling that causes alignment errors, instability and higher IL.</p>
+      <div class="test"><div class="th"><span class="tn">7</span><h3>Dynamic X-Coupling</h3></div>
+        <p class="body">Measures how moving one collimator affects neighbouring collimators — mechanical coupling that causes alignment errors, instability and higher IL.</p>
         <p class="meta"><b>Detects:</b> cross-axis mechanical coupling.</p>
         <p class="rel"><b>Relates to:</b> Stability, IL, Power Grid.</p></div>
-      <div class="test"><div class="th"><span class="tn">9</span><h3>Stability Test</h3></div>
+      <div class="test"><div class="th"><span class="tn">8</span><h3>Stability Test</h3></div>
         <p class="body">Measures the same path repeatedly over time to ensure power remains stable.</p>
         <p class="meta"><b>Detects:</b> thermal drift, actuator drift, vibration, unstable control loops.</p>
         <p class="rel"><b>Relates to:</b> Thermal Cal, Power Grid, Reliability.</p></div>
-      <div class="test"><div class="th"><span class="tn">10</span><h3>Switching Speed</h3></div>
+      <div class="test"><div class="th"><span class="tn">9</span><h3>Switching Speed</h3></div>
         <p class="body">Measures how fast the switch changes from one connection to another and settles to a stable, in-spec power level.</p>
         <p class="meta"><b>Important for:</b> high-speed and protection-switching applications.</p>
         <p class="rel"><b>Relates to:</b> Control Loop, Driver Electronics.</p></div>
-      <div class="test"><div class="th"><span class="tn">11</span><h3>XTALK with Parks</h3></div>
+      <div class="test"><div class="th"><span class="tn">10</span><h3>XTALK with Parks</h3></div>
         <p class="body">Measures optical crosstalk (leakage) at non-selected outputs while the desired path is active.</p>
         <p class="meta"><b>Detects:</b> leakage, misalignment, reflections, poor isolation.</p>
         <p class="rel"><b>Relates to:</b> IL, ORL, Power Grid.</p></div>
-      <div class="test"><div class="th"><span class="tn">12</span><h3>Noise vs Detuning Test</h3></div>
-        <p class="body">Detunes a mirror away from the optimum position and measures power and noise.</p>
+      <div class="test"><div class="th"><span class="tn">11</span><h3>Noise vs Detuning Test</h3></div>
+        <p class="body">Detunes a collimator away from the optimum position and measures power and noise.</p>
         <p class="meta"><b>Purpose:</b> evaluates sensitivity and control robustness.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Control-Loop Tuning, Stability.</p></div>
-      <div class="test"><div class="th"><span class="tn">13</span><h3>Power Cycling Test</h3></div>
+      <div class="test"><div class="th"><span class="tn">12</span><h3>Power Cycling Test</h3></div>
         <p class="body">Repeatedly powers the switch off and on and verifies it still meets specification; checks calibration retention and startup reliability.</p>
         <p class="meta"><b>Detects:</b> retention and startup faults.</p>
         <p class="rel"><b>Relates to:</b> EEPROM, Startup, Thermal, Overall Reliability.</p></div>
-      <div class="test"><div class="th"><span class="tn">14</span><h3>IL &amp; ORL Test</h3></div>
+      <div class="test"><div class="th"><span class="tn">13</span><h3>IL &amp; ORL Test</h3></div>
         <p class="body">Full optical performance test — measures insertion loss and optical return loss for all paths. The final qualification test.</p>
         <p class="meta"><b>Purpose:</b> final sign-off of optical performance.</p>
         <p class="rel"><b>Relates to:</b> Power Grid, Thermal, Alignment.</p></div>
@@ -444,8 +440,8 @@
       <table class="rel-table">
         <thead><tr><th>Test</th><th>Overlaps with</th><th>Why</th></tr></thead>
         <tbody>
-          <tr><td>Connectivity Check</td><td>Power Grid</td><td>Both verify mirrors reach commanded positions. Connectivity checks if a path exists; Power Grid checks how well it is aligned for maximum power.</td></tr>
-          <tr><td>Power Grid</td><td>Thermal Calibration</td><td>Thermal calibration keeps mirrors at the optimum found by Power Grid as temperature changes.</td></tr>
+          <tr><td>Connectivity Check</td><td>Power Grid</td><td>Both verify collimators reach commanded positions. Connectivity checks if a path exists; Power Grid checks how well it is aligned for maximum power.</td></tr>
+          <tr><td>Power Grid</td><td>Thermal Calibration</td><td>Thermal calibration keeps collimators aligned at the optimum found by Power Grid as temperature changes.</td></tr>
           <tr><td>Power Grid</td><td>IL Test</td><td>Poor Power Grid results increase insertion loss due to sub-optimal alignment.</td></tr>
           <tr><td>Splitter Calibration</td><td>Power Grid</td><td>Power Grid relies on accurate detector measurements.</td></tr>
           <tr><td>DAC Range Test</td><td>Power Grid</td><td>If the DAC cannot provide full range, the optimum position may be unreachable.</td></tr>
@@ -467,11 +463,11 @@
         <ul><li>Connectivity pass</li><li>Power Grid pass</li><li>IL low</li><li>ORL high</li><li>XTALK low (high dB)</li><li>Stable over time</li><li>Fast switching</li></ul>
         <p class="concl">→ High performance, reliable operation</p></div>
       <div class="res mixed"><h3>Connectivity pass, IL fail</h3>
-        <p style="font-size:14px;margin:0;color:var(--ink-soft)">Mirrors move correctly, but alignment is not optimal. Check Power Grid, thermal drift and optical cleanliness.</p>
+        <p style="font-size:14px;margin:0;color:var(--ink-soft)">Collimators move correctly, but alignment is not optimal. Check Power Grid, thermal drift and optical cleanliness.</p>
         <p class="cause">Possible causes</p><ul><li>Misalignment</li><li>Dirty optics</li><li>Wrong calibration</li></ul></div>
       <div class="res bad"><h3>Power Grid fail</h3>
         <p style="font-size:14px;margin:0;color:var(--ink-soft)">Cannot find a strong power peak.</p>
-        <p class="cause">Possible causes</p><ul><li>Dirty optics</li><li>Poor detectors</li><li>Damaged mirrors</li><li>Mechanical issues</li></ul></div>
+        <p class="cause">Possible causes</p><ul><li>Dirty optics</li><li>Poor detectors</li><li>Damaged actuators</li><li>Mechanical issues</li></ul></div>
       <div class="res mixed"><h3>Good Power Grid, stability fail</h3>
         <p style="font-size:14px;margin:0;color:var(--ink-soft)">Initial alignment good, but drifts over time.</p>
         <p class="cause">Possible causes</p><ul><li>Thermal-calibration drift</li><li>Environment</li><li>Power supplies</li></ul></div>
@@ -485,7 +481,6 @@
       <div class="card">
         <h3>Common terms</h3>
         <dl class="terms">
-          <div><dt>MEMS</dt><dd>Micro-Electro-Mechanical Systems</dd></div>
           <div><dt>DSP</dt><dd>Digital Signal Processor</dd></div>
           <div><dt>DAC</dt><dd>Digital-to-Analogue Converter</dd></div>
           <div><dt>IL</dt><dd>Insertion Loss</dd></div>

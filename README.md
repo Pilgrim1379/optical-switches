@@ -1,7 +1,7 @@
 # Optical Switches — Field Reference
 
 An installable, offline-capable single-page reference for optical switches: how they
-work, the key metrics (IL, ORL, crosstalk), the mirror control loop, and every test
+work, the key metrics (IL, ORL, crosstalk), the beam-steering control loop, and every test
 and calibration explained. Text is rendered as HTML/SVG, so it stays sharp at any zoom.
 
 ## Files
